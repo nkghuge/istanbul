@@ -4,11 +4,13 @@ var adder = require('./services/adder');
 var subtractor = require('./services/subtractor');
 var multiplier = require('./services/multiplier');
 var divider = require('./services/divider');
+const cors = require('cors');
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(cors());
 app.get('/', function (req, res) {
     res.send("Hello");
 });
@@ -36,7 +38,8 @@ function handleCalculatorRequest(func, numberA, numberB) {
     var numberA = parseInt(numberA);
     var numberB = parseInt(numberB);
     var result = func(numberA,numberB);
-
+    console.log('result = ',result.toString());
+    
     if(result) {
         return result.toString();
     }
